@@ -22,9 +22,9 @@ export default function HouseForm() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const id = uuid();
-    if (!file) return;
     if (ctx.currentUser) {
       addHouse({ ...inputs, email: ctx.currentUser?.email, id });
+      if (!file) return;
       addImages(file, id);
     } else {
       router.push("/login");

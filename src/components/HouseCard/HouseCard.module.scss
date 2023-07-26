@@ -1,0 +1,39 @@
+.house__card {
+  background-color: lightblue;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+
+  &__img__container {
+    position: relative;
+    width: 100%;
+  }
+
+  &__button__left,
+  &__button__right {
+    position: absolute;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    background-color: grey;
+    color: greenyellow;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 2rem;
+    box-shadow: 0 0 10px 10px rgba(172, 255, 47, 0.233);
+  }
+
+  &__button__left:hover,
+  &__button__right:hover {
+    box-shadow: 0 0 10px 10px rgba(172, 255, 47, 0.5);
+  }
+
+  &__button__left {
+    left: 0;
+  }
+
+  &__button__right {
+    right: 0;
+  }
+}

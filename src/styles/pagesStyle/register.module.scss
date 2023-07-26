@@ -1,0 +1,27 @@
+.register {
+  width: 90vw;
+  margin: 5rem auto;
+  &__form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  &__input {
+    padding: 0.5rem 1rem;
+    border: 1px solid black;
+    margin: 1rem;
+  }
+  &__submit {
+    padding: 0.5rem 1rem;
+    background-color: aquamarine;
+    width: 20%;
+    margin: 2rem auto;
+  }
+
+  &__submit:hover {
+    box-shadow: 0 0 10px 10px rgba(127, 255, 212, 0.5);
+  }
+}

@@ -1,6 +1,7 @@
 import { auth } from "@/services/config";
 import { User, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import { useContext, createContext } from "react";
 
@@ -10,24 +11,25 @@ interface IAuthContext {
 
 interface IContext {
   currentUser: User | null;
+  setCurrentUser: Dispatch<SetStateAction<User | null>>;
 }
 
 const initialState: IContext = {
   currentUser: null,
+  setCurrentUser: () => {},
 };
 
 const AuthContext = createContext<IContext>(initialState);
 
 export const AuthProvider = ({ children }: IAuthContext) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  
 
   useEffect(() => {
     onAuthStateChanged(auth, setCurrentUser);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,28 +2,40 @@ import { storage } from "./config";
 
 import { useState, useEffect } from "react";
 
-import { ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
+import { ref, getDownloadURL, listAll } from "firebase/storage";
 
-const addImages = (image: File | Blob, houseId: string) => {
+const addImages = (images: FileList | Blob[], houseId: string) => {
   const upload = () => {
-    const imageRef = storage
-      .ref(`images/${houseId}`)
-      .put(image)
-      .on("state_changed", () => alert("success"));
-    imageRef();
+    for (let i = 0; i < images.length; i++) {
+      const imageRef = storage
+        .ref(`images/${houseId}-${images[i].name}`)
+        .put(images[i])
+        .on("state_changed", () => alert("success"));
+      imageRef();
+    }
   };
   upload();
 };
 
-const deleteImages = (imageId: string) => {
-  const imageRef = ref(storage, `images/${imageId}`);
-  deleteObject(imageRef);
+const deleteImages = (images: string[]) => {
+  console.log(images);
+  for (let i = 0; i < images.length; i++) {
+    const imageRef = storage.refFromURL(images[i]);
+
+    imageRef
+      .delete()
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  }
 };
 
-const useGetImages = () => {
+const useGetImagesUrls = () => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const imagesListRef = ref(storage, "images/");
-
+  const imagesListRef = ref(storage, `images/`);
+  const arrWithoutDuplicates = imageUrls.filter(
+    (value, index, array) => array.indexOf(value) === index
+  );
+  console.log(imageUrls);
   useEffect(() => {
     listAll(imagesListRef).then((response) => {
       response.items.forEach((item) => {
@@ -33,7 +45,7 @@ const useGetImages = () => {
       });
     });
   }, []);
-  return imageUrls;
+  return arrWithoutDuplicates;
 };
 
-export { addImages, useGetImages, deleteImages };
+export { addImages, useGetImagesUrls, deleteImages };

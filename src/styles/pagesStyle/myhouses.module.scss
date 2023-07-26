@@ -1,0 +1,23 @@
+.myhouses {
+  width: 90vw;
+  margin: 0 auto;
+  font-size: 2rem;
+  font-weight: bold;
+  &__container {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__button {
+    background-color: grey;
+    color: greenyellow;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 0 10px 10px rgba(172, 255, 47, 0.233);
+  }
+
+  &__button:hover {
+    box-shadow: 0 0 10px 10px rgba(172, 255, 47, 0.5);
+  }
+}

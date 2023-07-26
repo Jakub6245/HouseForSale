@@ -7,25 +7,35 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useAuthContext } from "@/context/AuthContext";
+import styles from "../styles/pagesStyle/login.module.scss";
 
 type ProviderType =
   | GoogleAuthProvider
   | GithubAuthProvider
   | FacebookAuthProvider;
 
-const logInWith = (provider: ProviderType) => {
-  signInWithPopup(auth, provider)
-    .then((data) => console.log(data.user))
-    .catch((error) => console.log(error));
-};
-
 export default function Login() {
   const [inputs, setInputs] = useState({ email: "", password: "" });
+  const { currentUser, setCurrentUser } = useAuthContext();
+  const router = useRouter();
   const handleInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const name = event.target.name;
     setInputs({ ...inputs, [name]: value });
   };
+  // if (currentUser) router.push("/");
+
+  const logInWith = (provider: ProviderType) => {
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        setCurrentUser(data.user);
+        router.push("/");
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -35,17 +45,19 @@ export default function Login() {
         inputs.email,
         inputs.password
       );
-      console.log(user);
+      router.push("/");
+      setCurrentUser(user.user);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.login}>
+      <form className={styles.login__form} onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
+          className={styles.login__input}
           name="email"
           value={inputs.email}
           type="email"
@@ -53,22 +65,34 @@ export default function Login() {
         />
         <label>Password:</label>
         <input
+          className={styles.login__input}
           name="password"
           value={inputs.password}
           type="password"
           onChange={handleInputs}
         />
-        <input type="submit" />
+        <input className={styles.login__submit} type="submit" />
       </form>
-      <button onClick={() => logInWith(providers.googleProvider)}>
-        Sign with google
-      </button>
-      <button onClick={() => logInWith(providers.githubProvider)}>
-        Sign with facebook
-      </button>
-      <button onClick={() => logInWith(providers.facebookProvider)}>
-        Sign with github
-      </button>
+      <div className={styles.login__button__container}>
+        <button
+          className={styles.login__button}
+          onClick={() => logInWith(providers.googleProvider)}
+        >
+          Sign with google
+        </button>
+        <button
+          className={styles.login__button}
+          onClick={() => logInWith(providers.githubProvider)}
+        >
+          Sign with facebook
+        </button>
+        <button
+          className={styles.login__button}
+          onClick={() => logInWith(providers.facebookProvider)}
+        >
+          Sign with github
+        </button>
+      </div>
     </div>
   );
 }

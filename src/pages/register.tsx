@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import styles from "../styles/pagesStyle/register.module.scss";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/services/config";
 
@@ -20,10 +20,11 @@ export default function Register() {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.register}>
+      <form className={styles.register__form} onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
+          className={styles.register__input}
           name="email"
           value={inputs.email}
           type="email"
@@ -31,12 +32,13 @@ export default function Register() {
         />
         <label>Password:</label>
         <input
+          className={styles.register__input}
           name="password"
           value={inputs.password}
           type="password"
           onChange={handleInputs}
         />
-        <input type="submit" />
+        <input className={styles.register__submit} type="submit" />
       </form>
     </div>
   );

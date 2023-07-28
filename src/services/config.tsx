@@ -35,5 +35,5 @@ const githubProvider = new GithubAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 const providers = { googleProvider, githubProvider, facebookProvider };
 
-export { auth, providers, dataBase, firestore, storage };
+export { auth, providers, dataBase, firestore, storage, app };
 export default getFirestore(app);

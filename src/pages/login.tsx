@@ -29,8 +29,7 @@ export default function Login() {
 
   const logInWith = (provider: ProviderType) => {
     signInWithPopup(auth, provider)
-      .then((data) => {
-        setCurrentUser(data.user);
+      .then(() => {
         router.push("/");
       })
       .catch((error) => console.log(error));
@@ -82,15 +81,21 @@ export default function Login() {
         </button>
         <button
           className={styles.login__button}
-          onClick={() => logInWith(providers.githubProvider)}
+          onClick={() => logInWith(providers.facebookProvider)}
         >
           Sign with facebook
         </button>
         <button
           className={styles.login__button}
-          onClick={() => logInWith(providers.facebookProvider)}
+          onClick={() => logInWith(providers.githubProvider)}
         >
           Sign with github
+        </button>
+        <button
+          className={styles.login__button}
+          onClick={() => router.push("/register")}
+        >
+          Sign up
         </button>
       </div>
     </div>

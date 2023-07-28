@@ -14,10 +14,10 @@ export default function Navigation() {
             <Link href="/">Home</Link>
           </li>
           <li className={styles.nav__list__child}>
-            <Link href="/myhouses">My houses</Link>
+            <Link href="/houses/my-houses">My houses</Link>
           </li>
           <li className={styles.nav__list__child}>
-            <Link href="/houseform">Add house offer</Link>
+            <Link href="/houses/add-house">Add house offer</Link>
           </li>
         </div>
         {!currentUser && (

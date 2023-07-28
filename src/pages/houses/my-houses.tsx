@@ -5,7 +5,9 @@ import { deleteHouse, useGetData } from "@/services/useGetHousesData";
 import { deleteImages, useGetImagesUrls } from "@/services/useGetHousesImages";
 import { HouseType } from "@/types/HouseType";
 import React from "react";
-import styles from "../styles/pagesStyle/myhouses.module.scss";
+import styles from "../../styles/pagesStyle/myhouses.module.scss";
+import { GetServerSideProps } from "next";
+import protectPage from "@/services/protectPage";
 
 const handleBtnDelete = (images: string[], houseId: string) => {
   deleteHouse(houseId);
@@ -40,3 +42,14 @@ export default function MyHouses() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = protectPage(
+  async (context) => {
+    // You can perform any necessary data fetching or other operations here
+    // This function will only be called if the user is authenticated
+
+    return {
+      props: {},
+    };
+  }
+);

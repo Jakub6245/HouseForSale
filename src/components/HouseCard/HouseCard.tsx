@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./HouseCard.module.scss";
 import { HouseType } from "@/types/HouseType";
-import HouseImage from "../HouseImage";
+import HouseImage from "../houseImage/HouseImage";
 import { useGetImagesUrls } from "@/services/useGetHousesImages";
 
 export default function HouseCard({ data }: { data: HouseType }) {

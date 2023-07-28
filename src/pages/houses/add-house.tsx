@@ -2,10 +2,12 @@ import Navigation from "@/components/Navigation/Navigation";
 import { useAuthContext } from "@/context/AuthContext";
 import { addHouse } from "@/services/useGetHousesData";
 import { addImages } from "@/services/useGetHousesImages";
-import styles from "../styles/pagesStyle/houseform.module.scss";
+import styles from "../../styles/pagesStyle/houseform.module.scss";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { uuid } from "uuidv4";
+import { GetServerSideProps } from "next";
+import protectPage from "@/services/protectPage";
 
 export default function HouseForm() {
   const [file, setFile] = useState<FileList | Blob[]>([]);
@@ -104,3 +106,14 @@ export default function HouseForm() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = protectPage(
+  async (context) => {
+    // You can perform any necessary data fetching or other operations here
+    // This function will only be called if the user is authenticated
+
+    return {
+      props: {},
+    };
+  }
+);

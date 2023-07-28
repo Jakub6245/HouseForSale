@@ -1,9 +1,11 @@
 .house__card {
   background-color: lightblue;
   border-radius: 10px;
-  margin: 0 auto;
+  // margin: 0 auto;
   padding: 2rem;
   font-size: 2rem;
+  max-width: 55rem;
+  max-width: 60rem;
   font-weight: bold;
 
   &__img__container {
